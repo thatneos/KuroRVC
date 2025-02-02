@@ -411,8 +411,6 @@ def run_tts_script(
     )
 
 
-
-
 # Model information
 def run_model_information_script(pth_path: str):
     print(model_information(pth_path))
@@ -436,8 +434,6 @@ def run_tensorboard_script():
 def run_download_script(model_link: str):
     model_download_pipeline(model_link)
     return f"Model downloaded successfully."
-
-
 
 
 # Audio analyzer
@@ -1628,8 +1624,6 @@ def parse_arguments():
         help=f0_file_description,
         default=None,
     )
-
-
 
     # Parser for 'model_information' mode
     model_information_parser = subparsers.add_parser(

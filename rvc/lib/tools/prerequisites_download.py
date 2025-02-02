@@ -102,5 +102,3 @@ def prerequisites_download_pipeline(models, exe):
                     print("No executables needed for non-Windows systems.")
     else:
         print("No files to download.")
-
-
