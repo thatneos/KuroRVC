@@ -36,7 +36,6 @@ def _playsoundWin(sound, block=True):
     sound = '"' + _canonicalizePath(sound) + '"'
 
     from ctypes import create_unicode_buffer, windll, wintypes
-    from time import sleep
 
     windll.winmm.mciSendStringW.argtypes = [
         wintypes.LPCWSTR,
@@ -81,7 +80,6 @@ def _playsoundWin(sound, block=True):
         except PlaysoundException:
             logger.warning("Failed to close the file: {}".format(sound))
             # If it fails, there's nothing more that can be done...
-            pass
 
 
 def _handlePathOSX(sound):

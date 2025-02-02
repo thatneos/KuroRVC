@@ -1,8 +1,6 @@
 from importlib import metadata
 import os
 import sys
-import platform
-import subprocess
 import time
 import logging
 import warnings
