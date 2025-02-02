@@ -5,8 +5,7 @@ import requests
 
 url_base = "https://huggingface.co/IAHispano/Applio/resolve/main/Resources"
 
-
-]
+# Define the file lists
 models_list = [("predictors/", ["rmvpe.pt", "fcpe.pt"])]
 embedders_list = [("embedders/contentvec/", ["pytorch_model.bin", "config.json"])]
 executables_list = [
@@ -20,19 +19,18 @@ folder_mapping_list = {
 }
 
 
-def get_file_size_if_missing(file_list):
+def get_file_size_all(file_list):
     """
-    Calculate the total size of files to be downloaded only if they do not exist locally.
+    Calculate the total size of files to be downloaded, regardless of local existence.
     """
     total_size = 0
     for remote_folder, files in file_list:
+        # Use the mapping if available; otherwise, use an empty local folder
         local_folder = folder_mapping_list.get(remote_folder, "")
         for file in files:
-            destination_path = os.path.join(local_folder, file)
-            if not os.path.exists(destination_path):
-                url = f"{url_base}/{remote_folder}{file}"
-                response = requests.head(url)
-                total_size += int(response.headers.get("content-length", 0))
+            url = f"{url_base}/{remote_folder}{file}"
+            response = requests.head(url)
+            total_size += int(response.headers.get("content-length", 0))
     return total_size
 
 
@@ -41,7 +39,6 @@ def download_file(url, destination_path, global_bar):
     Download a file from the given URL to the specified destination path,
     updating the global progress bar as data is downloaded.
     """
-
     dir_name = os.path.dirname(destination_path)
     if dir_name:
         os.makedirs(dir_name, exist_ok=True)
@@ -57,6 +54,7 @@ def download_mapping_files(file_mapping_list, global_bar):
     """
     Download all files in the provided file mapping list using a thread pool executor,
     and update the global progress bar as downloads progress.
+    This version downloads all files regardless of whether they already exist.
     """
     with ThreadPoolExecutor() as executor:
         futures = []
@@ -64,49 +62,32 @@ def download_mapping_files(file_mapping_list, global_bar):
             local_folder = folder_mapping_list.get(remote_folder, "")
             for file in file_list:
                 destination_path = os.path.join(local_folder, file)
-                if not os.path.exists(destination_path):
-                    url = f"{url_base}/{remote_folder}{file}"
-                    futures.append(
-                        executor.submit(
-                            download_file, url, destination_path, global_bar
-                        )
-                    )
+                url = f"{url_base}/{remote_folder}{file}"
+                futures.append(
+                    executor.submit(download_file, url, destination_path, global_bar)
+                )
         for future in futures:
             future.result()
 
 
-
-
-def calculate_total_size(
-    models,
-    exe,
-):
+def calculate_total_size(models, exe):
     """
     Calculate the total size of all files to be downloaded based on selected categories.
     """
     total_size = 0
     if models:
-        total_size += get_file_size_if_missing(models_list)
-        total_size += get_file_size_if_missing(embedders_list)
+        total_size += get_file_size_all(models_list)
+        total_size += get_file_size_all(embedders_list)
     if exe and os.name == "nt":
-        total_size += get_file_size_if_missing(executables_list)
-    
+        total_size += get_file_size_all(executables_list)
     return total_size
 
 
-def prequisites_download_pipeline(
-    models,
-    exe,
-):
+def prerequisites_download_pipeline(models, exe):
     """
     Manage the download pipeline for different categories of files.
     """
-    total_size = calculate_total_size(
-        
-        models,
-        exe,
-    )
-
+    total_size = calculate_total_size(models, exe)
     if total_size > 0:
         with tqdm(
             total=total_size, unit="iB", unit_scale=True, desc="Downloading all files"
@@ -118,7 +99,8 @@ def prequisites_download_pipeline(
                 if os.name == "nt":
                     download_mapping_files(executables_list, global_bar)
                 else:
-                    print("No executables needed")
-            
+                    print("No executables needed for non-Windows systems.")
     else:
-        pass
+        print("No files to download.")
+
+
