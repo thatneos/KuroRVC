@@ -51,7 +51,6 @@ The RVC CLI builds upon the foundations of the following projects:
   - [Mangio-RVC-Fork](https://github.com/Mangio621/Mangio-RVC-Fork) by Mangio621
   - [VITS](https://github.com/jaywalnut310/vits) by jaywalnut310
   - [Harmonify](https://huggingface.co/Eempostor/Harmonify) by Eempostor
-  - [rvc-trainer](https://github.com/thepowerfuldeez/rvc-trainer) by thepowerfuldeez
 
 - **Pitch Extractors:**
 
