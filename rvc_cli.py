@@ -1888,11 +1888,6 @@ def main():
             run_download_script(
                 model_link=args.model_link,
             )
-        elif args.mode == "prerequisites":
-            run_prerequisites_script(
-                models=args.models,
-                exe=args.exe,
-            )
         elif args.mode == "audio_analyzer":
             run_audio_analyzer_script(
                 input_path=args.input_path,
