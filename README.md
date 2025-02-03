@@ -1,4 +1,4 @@
-# 🚀 Python RVC Inference 
+# 🚀 Python RVC Inference Cli
 
 <center>A perfect set of tools for voice cloning, easily and free!</center>
 
