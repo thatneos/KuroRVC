@@ -5,7 +5,7 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/kiurobox/python-rvc-cli/blob/main/colab/python_rvc_cli.ipynb)
 
 > [!NOTE]  
-> Ths project orgnally by blaisewf. this project only for inference duh
+> this project only for inference duh
 
 ### Installation
 
@@ -40,6 +40,8 @@ This command provides a clear overview of the available modes and their correspo
 
 The RVC CLI builds upon the foundations of the following projects:
 
+- **OG Project:**
+ - [rvc-cli](https://github.com/blaisewf/rvc-cli.git) by blaisewf
 - **Vocoders:**
 
   - [HiFi-GAN](https://github.com/jik876/hifi-gan) by jik876
