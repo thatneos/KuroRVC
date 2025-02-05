@@ -92,26 +92,10 @@ This will display the help message, detailing the various modes and parameters y
 1. **Basic Voice Conversion:**
    - Convert an audio file using a specific model.
    ```bash
-   python rvc_cli.py --input input.wav --output output.wav --model hifi-gan
+   python rvc_cli.py --input input.wav --output output.wav 
    ```
 
-2. **Using Different Vocoders:**
-   - Experiment with different vocoders to achieve varying voice qualities.
-   ```bash
-   python rvc_cli.py --input input.wav --output output.wav --vocoder vocos
-   ```
 
-3. **Extracting Pitch:**
-   - Use a pitch extraction tool to analyze the input audio.
-   ```bash
-   python rvc_cli.py --input input.wav --extract-pitch --pitch-tool anyf0
-   ```
-
-4. **Downloading Audio:**
-   - Download audio files from URLs for conversion.
-   ```bash
-   python download_audio.py --url https://example.com/audio.mp3 --output downloaded_audio.mp3
-   ```
 
 ## References
 
